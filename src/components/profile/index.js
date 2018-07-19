@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import style from './style.less';
+import axios from 'axios';
 
 export default class Profile extends Component {
 	state = {

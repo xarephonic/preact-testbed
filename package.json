@@ -85,7 +85,8 @@
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.0",
     "webpack": "^3.0.0",
-    "webpack-dev-server": "^3.0.0"
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^2.0.0"
   },
   "dependencies": {
     "preact": "^8.1.0",
@@ -95,5 +96,17 @@
     "promise-polyfill": "^7.0.1",
     "proptypes": "^1.0.0",
     "serve": "^6.0.0"
-  }
+  },
+  "main": "webpack.config.babel.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xarephonic/preact-testbed.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xarephonic/preact-testbed/issues"
+  },
+  "homepage": "https://github.com/xarephonic/preact-testbed#readme"
 }

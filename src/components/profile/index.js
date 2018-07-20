@@ -3,40 +3,41 @@ import style from './style.less';
 import axios from 'axios';
 
 export default class Profile extends Component {
-	state = {
-		count: 0
-	};
-
-	// update the current time
-	updateTime = () => {
-		let time = new Date().toLocaleString();
-		this.setState({ time });
-	};
-
-	// gets called when this route is navigated to
+	state = {};
 	componentDidMount() {
-		// start a timer for the clock:
-		this.timer = setInterval(this.updateTime, 1000);
-		this.updateTime();
-
-		// every time we get remounted, increment a counter:
-		this.setState({ count: this.state.count+1 });
+		axios.get(`http://localhost:8090/${this.props.user}`)
+			.then(resp => {
+				this.setState({
+					...resp.data
+				})
+			});
 	}
 
-	// gets called just before navigating away from the route
-	componentWillUnmount() {
-		clearInterval(this.timer);
+	componentWillReceiveProps(nextprops) {
+		axios.get(`http://localhost:8090/${nextprops.user}`)
+			.then(resp => {
+				this.setState({
+					...resp.data
+				});
+			});
 	}
 
-	// Note: `user` comes from the URL, courtesy of our router
-	render({ user }, { time, count }) {
+	render() {
 		return (
 			<div class={style.profile}>
-				<h1>Profile: {user}</h1>
-				<p>This is the user profile for a user named {user}.</p>
-
-				<div>Current time: {time}</div>
-				<div>Profile route mounted {count} times.</div>
+				<h1>{this.state.name}</h1>
+				{ this.state.images && ( <img src={this.state.images[1].url}/>)}
+				{ this.state.genres && (
+					<ul>
+						{this.state.genres.map(genre => {
+							return (<li>{genre}</li>)
+						})}
+					</ul>
+				)}
+				{ this.state.followers && (
+					<p>Followers: {this.state.followers.total}</p>
+					)
+				}
 			</div>
 		);
 	}
